@@ -1,6 +1,7 @@
 package com.felipespringmongo.demo.resources;
 
 
+import com.felipespringmongo.demo.domain.Post;
 import com.felipespringmongo.demo.domain.User;
 import com.felipespringmongo.demo.dto.UserDTO;
 import com.felipespringmongo.demo.services.UserService;
@@ -55,5 +56,10 @@ public class UserResources {
         return ResponseEntity.noContent().build();
     }
 
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
 
 }
