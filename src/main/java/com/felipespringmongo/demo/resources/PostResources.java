@@ -4,6 +4,7 @@ package com.felipespringmongo.demo.resources;
 import com.felipespringmongo.demo.domain.Post;
 import com.felipespringmongo.demo.domain.User;
 import com.felipespringmongo.demo.dto.UserDTO;
+import com.felipespringmongo.demo.resources.util.URL;
 import com.felipespringmongo.demo.services.PostService;
 import com.felipespringmongo.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class PostResources {
     public ResponseEntity<Post> findById(@PathVariable String id){
         Post obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(value = "/titlesearch", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "txt", defaultValue = "") String txt){
+        txt = URL.decodeParam(txt);
+        List<Post> list = service.findByTitle(txt);
+        return ResponseEntity.ok().body(list);
     }
 
 
