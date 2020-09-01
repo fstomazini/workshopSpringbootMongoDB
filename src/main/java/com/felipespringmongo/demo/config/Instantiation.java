@@ -3,6 +3,7 @@ package com.felipespringmongo.demo.config;
 import com.felipespringmongo.demo.domain.Post;
 import com.felipespringmongo.demo.domain.User;
 import com.felipespringmongo.demo.dto.AuthorDTO;
+import com.felipespringmongo.demo.dto.CommentDTO;
 import com.felipespringmongo.demo.repository.PostRepository;
 import com.felipespringmongo.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,12 @@ public class  Instantiation implements CommandLineRunner {
         Post post1 = new Post(null,sdf.parse("21/03/2018"), "Partiu Viagem ","vou viajar para São Paulo. Abraços", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/11/2018"), "bom dia", "Acordei Feliz hoje!! :D",new AuthorDTO(maria) );
 
+        CommentDTO comment1 = new CommentDTO("Boa viagem Mano", sdf.parse("21/13/2018"), new AuthorDTO(alex));
+        CommentDTO comment2 = new CommentDTO("Aproveite", sdf.parse("23/03/2018"), new AuthorDTO(bob));
+        CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(comment1,comment2));
+        post2.getComments().add(comment3);
         postRepository.saveAll(Arrays.asList(post1,post2));
 
         maria.getPosts().addAll(Arrays.asList(post1,post2));
